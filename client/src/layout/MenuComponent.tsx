@@ -53,7 +53,6 @@ export default function MenuComponent() {
     setAnchorElUser(null);
   };
   const navigate = useNavigate();
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
