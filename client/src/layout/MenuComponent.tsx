@@ -21,8 +21,8 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { routersUser } from "../routes/routersUser";
 import Home from "../pages/user/Home";
+import { userRouter } from "../routes/routers";
 
 const drawerWidth = 240;
 const pages = ["Products", "Pricing", "Blog"];
@@ -221,22 +221,14 @@ export default function MenuComponent() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <Routes>
-          {routersUser.map((router, _: number) => (
-            <Route
-              key={router.path}
-              path={router.path}
-              element={router.component}
-            >
-              {router.routers &&
-                router.routers.map((item, key) => (
-                  <Route
-                    key={item.path + key}
-                    path={item.path}
-                    element={item.component}
-                  />
-                ))}
-            </Route>
-          ))}
+          {userRouter.routers &&
+            userRouter.routers.map((router, _: number) => (
+              <Route
+                key={router.path}
+                path={router.path}
+                element={router.component}
+              ></Route>
+            ))}
         </Routes>
       </Box>
     </Box>
