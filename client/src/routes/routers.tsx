@@ -3,6 +3,7 @@ import MenuComponent from "../layout/MenuComponent";
 import Home from "../pages/user/Home";
 import Login from "../pages/admin/Login";
 import Page404 from "../@core/page404";
+import RequireAuth from "../auth/RequireAuth";
 export interface RouterProps {
   [x: string]: any;
   path: string;
@@ -17,7 +18,11 @@ const userRouter: RouterProps = {
   routers: [
     {
       path: "home",
-      component: <Home />,
+      component: (
+        <RequireAuth>
+          <Home />
+        </RequireAuth>
+      ),
     },
   ],
 };

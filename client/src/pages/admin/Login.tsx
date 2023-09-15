@@ -11,6 +11,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useAuth } from "../../auth/AuthProvider";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 function Copyright(props: any) {
   return (
@@ -31,12 +33,25 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let auth = useAuth();
+
+  let from = location.state?.from?.pathname || "/home";
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+    let formData = new FormData(event.currentTarget);
+    let username = formData.get("username") as string;
+
+    auth.signin(username, () => {
+      // Send them back to the page they tried to visit when they were
+      // redirected to the login page. Use { replace: true } so we don't create
+      // another entry in the history stack for the login page.  This means that
+      // when they get to the protected page and click the back button, they
+      // won't end up back on the login page, which is also really nice for the
+      // user experience.
+      navigate(from, { replace: true });
     });
   };
 
@@ -66,9 +81,9 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="Email Address"
-              name="email"
+              name="username"
               autoComplete="email"
               autoFocus
             />

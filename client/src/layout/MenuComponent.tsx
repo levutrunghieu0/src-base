@@ -23,12 +23,14 @@ import {
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "../pages/user/Home";
 import { userRouter } from "../routes/routers";
+import { useAuth } from "../auth/AuthProvider";
 
 const drawerWidth = 240;
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function MenuComponent() {
+  let auth = useAuth();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -165,11 +167,16 @@ export default function MenuComponent() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem key={"logout"} onClick={handleCloseUserMenu}>
+                  <Typography
+                    textAlign="center"
+                    onClick={() => {
+                      auth.signout(() => navigate("/login"));
+                    }}
+                  >
+                    log out
+                  </Typography>
+                </MenuItem>
               </Menu>
             </Box>
           </Toolbar>
