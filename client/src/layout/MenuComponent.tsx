@@ -21,13 +21,14 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { routers } from "../routes/routers";
+import { routersUser } from "../routes/routersUser";
+import Home from "../pages/user/Home";
 
 const drawerWidth = 240;
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-export default function ClippedDrawer() {
+export default function MenuComponent() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -220,7 +221,7 @@ export default function ClippedDrawer() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <Routes>
-          {routers.map((router, _: number) => (
+          {routersUser.map((router, _: number) => (
             <Route
               key={router.path}
               path={router.path}

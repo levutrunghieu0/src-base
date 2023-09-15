@@ -1,5 +1,7 @@
 import { Navigate } from "react-router-dom";
-import Home from "../pages/Home";
+import MenuComponent from "../layout/MenuComponent";
+import Home from "../pages/user/Home";
+import Login from "../pages/admin/Login";
 export interface RouterProps {
   [x: string]: any;
   path: string;
@@ -8,13 +10,23 @@ export interface RouterProps {
   label?: string;
   routers?: RouterProps[];
 }
-const homeRouter: RouterProps[] = [
+const userRoter: RouterProps[] = [
   {
-    path: "home",
-    component: <Home />,
+    path: "/",
+    component: <MenuComponent />,
+    routers: [
+      {
+        path: "home",
+        component: <Home />,
+      },
+    ],
+  },
+  {
+    path: "login",
+    component: <Login />,
   },
 ];
 
-const routers: RouterProps[] = [...homeRouter];
+const routers: RouterProps[] = [...userRoter];
 
-export { homeRouter, routers };
+export { userRoter, routers };
