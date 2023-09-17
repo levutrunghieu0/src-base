@@ -8,13 +8,16 @@ export const databaseProviders = [
       const sequelize = new Sequelize({
         dialect: 'mysql',
         host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: '220897',
-        database: 'test',
+        port: Number(process.env.DATABASE_PORT),
+        username: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_NAME,
       });
       sequelize.addModels([User]);
-      await sequelize.sync({ force: true, alter: true });
+      await sequelize.sync({
+        force: Boolean(process.env.FORCE),
+        alter: Boolean(process.env.ALTER),
+      });
       return sequelize;
     },
   },
