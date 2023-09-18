@@ -4,9 +4,11 @@ import { AppService } from './app.service';
 import { AppLoggerMiddleware } from './appLoggerMiddleWare';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule],
+  imports: [ConfigModule.forRoot(), UsersModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -15,10 +15,10 @@ export class UsersService {
     return this.userModel.findAll();
   }
 
-  findOne(id: string): Promise<User> {
+  findOne(email: string): Promise<User> {
     return this.userModel.findOne({
       where: {
-        id,
+        email: email,
       },
     });
   }

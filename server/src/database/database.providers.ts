@@ -12,11 +12,12 @@ export const databaseProviders = [
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
+        logging: false,
       });
       sequelize.addModels([User]);
       await sequelize.sync({
-        force: Boolean(process.env.FORCE),
-        alter: Boolean(process.env.ALTER),
+        force: false,
+        alter: true,
       });
       return sequelize;
     },

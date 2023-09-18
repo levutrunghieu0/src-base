@@ -4,6 +4,6 @@ import { Sequelize } from 'sequelize-typescript';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World! hehehe';
+    return 'Hello World!';
   }
 }
