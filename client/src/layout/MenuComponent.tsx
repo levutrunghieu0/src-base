@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "../pages/user/Home";
-import { userRouter } from "../routes/routers";
+import { adminRouter } from "../routes/routers";
 import { useAuth } from "../auth/AuthProvider";
 
 const drawerWidth = 240;
@@ -195,21 +195,30 @@ export default function MenuComponent() {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem
-                key={text}
-                disablePadding
-                onClick={() => {
-                  if (index % 2 === 0) navigate("/home");
-                  else navigate("/");
-                }}
-              >
-                <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            <ListItem
+              key={"Home"}
+              disablePadding
+              onClick={() => {
+                navigate("/admin/home");
+              }}
+            >
+              <ListItemButton>
+                <ListItemIcon></ListItemIcon>
+                <ListItemText primary={"Home"} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              key={"Products"}
+              disablePadding
+              onClick={() => {
+                navigate("/admin/products");
+              }}
+            >
+              <ListItemButton>
+                <ListItemIcon></ListItemIcon>
+                <ListItemText primary={"Products"} />
+              </ListItemButton>
+            </ListItem>
           </List>
           <Divider />
           <List>
@@ -227,8 +236,8 @@ export default function MenuComponent() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <Routes>
-          {userRouter.routers &&
-            userRouter.routers.map((router, _: number) => (
+          {adminRouter[0].routers &&
+            adminRouter[0].routers.map((router, _: number) => (
               <Route
                 key={router.path}
                 path={router.path}

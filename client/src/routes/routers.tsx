@@ -4,6 +4,7 @@ import Home from "../pages/user/Home";
 import Login from "../pages/admin/Login";
 import Page404 from "../@core/page404";
 import RequireAuth from "../auth/RequireAuth";
+import ProDucts from "../pages/admin/Products";
 export interface RouterProps {
   [x: string]: any;
   path: string;
@@ -30,12 +31,21 @@ const userRouter: RouterProps = {
 const adminRouter: RouterProps[] = [
   {
     path: "/admin",
-    component:
-      1 / 2 === 2 ? (
-        <Navigate to="/login" replace={true} />
-      ) : (
-        <Navigate to="/" replace={true} />
-      ),
+    component: (
+      <RequireAuth>
+        <MenuComponent />
+      </RequireAuth>
+    ),
+    routers: [
+      {
+        path: "home",
+        component: <Home />,
+      },
+      {
+        path: "products",
+        component: <ProDucts />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -53,4 +63,4 @@ const adminRouter: RouterProps[] = [
 
 const routers: RouterProps[] = [...adminRouter, userRouter];
 
-export { userRouter, routers };
+export { userRouter, routers, adminRouter };
